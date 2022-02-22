@@ -1,0 +1,79 @@
+version: '3'
+
+services:
+  forum_db:
+    image: mysql/mysql-server:8.0
+    volumes:
+      - ./docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
+    environment:
+      MYSQL_DATABASE: 'forum'
+      MYSQL_USER: 'admin'
+      MYSQL_PASSWORD: 'admin'
+      MYSQL_ROOT_PASSWORD: 'admin'
+    ports:
+      - "3308:3306"
+
+  forum_minio:
+      image: minio/minio
+      ports:
+        - "9000:9000"
+      volumes:
+        - ./minio/.minio/data:/export
+        - ./minio/.minio/config:/root/.minio
+      environment:
+        MINIO_ACCESS_KEY: 'minio'
+        MINIO_SECRET_KEY: 'minio'
+      command: server /export
+      networks:
+        aps-network:
+          aliases:
+            - aps_minio
+
+  forum_mailhog:
+      image: mailhog/mailhog:latest
+      ports:
+        - "1025:1025"
+        - "8025:8025"
+      networks:
+        aps-network:
+          aliases:
+            - apsmanagment_mailhog
+
+  forum_keycloak:
+    image: jboss/keycloak:8.0.1
+    environment:
+      DB_VENDOR: 'postgres'
+      DB_ADDR: 'keycloak_db'
+      POSTGRES_DB: 'keycloak'
+      DB_USER: 'keycloak'
+      DB_PASSWORD: 'password'
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./keycloak:/opt/jboss/keycloak/themes/uhub
+    networks:
+      aps-network:
+        aliases:
+          - keycloak_server
+    depends_on:
+      - forum_keycloak_db
+
+  forum_keycloak_db:
+    image: postgres:9.6
+    ports:
+      - "9990:5432"
+    environment:
+      POSTGRES_USER: 'keycloak'
+      POSTGRES_DB: 'keycloak'
+      POSTGRES_PASSWORD: 'password'
+    volumes:
+      - ./keycloak/db:/var/lib/postgresql/data
+    networks:
+      aps-network:
+        aliases:
+          - keycloak_db
+
+networks:
+  aps-network:
+    external:
+      name: aps-network

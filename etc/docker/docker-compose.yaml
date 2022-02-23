@@ -3,6 +3,7 @@ version: '3.9'
 services:
   forum_db:
     image: mysql/mysql-server:8.0
+    container_name: 'forum_db'
     volumes:
       - ./docker-entrypoint-initdb.d/:/docker-entrypoint-initdb.d/
     environment:
@@ -15,18 +16,23 @@ services:
 
   forum_mailhog:
       image: mailhog/mailhog:latest
+      container_name: 'forum_mailhog'
       ports:
         - "1025:1025"
         - "8025:8025"
 
   forum_keycloak:
     image: jboss/keycloak:13.0.0
+    container_name: 'forum_keycloak'
     environment:
       DB_VENDOR: 'postgres'
-      DB_ADDR: 'keycloak_db'
+      DB_ADDR: 'forum_keycloak_db'
       POSTGRES_DB: 'keycloak'
       DB_USER: 'keycloak'
       DB_PASSWORD: 'password'
+      KEYCLOAK_USER: 'admin'
+      KEYCLOAK_PASSWORD: 'admin'
+      KEYCLOAK_IMPORT: './files/realm-export.json'
     ports:
       - "8080:8080"
     volumes:
@@ -36,6 +42,7 @@ services:
 
   forum_keycloak_db:
     image: postgres:13.2
+    container_name: 'forum_keycloak_db'
     ports:
       - "9990:5432"
     environment:

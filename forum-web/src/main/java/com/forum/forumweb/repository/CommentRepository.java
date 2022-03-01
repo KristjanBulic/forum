@@ -1,6 +1,7 @@
-package repository;
+package com.forum.forumweb.repository;
 
-import model.Comment;
+
+import com.forum.forumweb.model.Comment;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

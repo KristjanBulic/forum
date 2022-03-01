@@ -1,6 +1,6 @@
-package repository;
+package com.forum.forumweb.repository;
 
-import model.Post;
+import com.forum.forumweb.model.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

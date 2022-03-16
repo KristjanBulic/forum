@@ -17,4 +17,9 @@ public class PostService {
     public List<Post> getPosts(Specification<Post> specs) {
         return postRepository.findAll(specs);
     }
+
+    public int savePost(Post post) {
+        Post returnedPost = postRepository.save(post);
+        return returnedPost.getId();
+    }
 }

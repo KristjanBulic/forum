@@ -17,4 +17,8 @@ public class CommentService {
     public List<Comment> getCommentsForPost(int postId){
         return commentRepository.findAllByPostId(postId);
     }
+
+    public void saveComment(Comment comment) {
+        commentRepository.save(comment);
+    }
 }

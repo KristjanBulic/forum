@@ -25,9 +25,6 @@ public class Post {
     @Column(name = "POST_TIME")
     private Date postTime;
 
-    @Column(name = "FILE")
-    private File file;
-
     @Column(name = "USER_ID")
     private Integer userId;
 }

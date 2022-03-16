@@ -30,7 +30,4 @@ public class Comment {
 
     @Column(name = "USER_NAME")
     private String userName;
-
-    @Column(name = "FILE")
-    private File file;
 }

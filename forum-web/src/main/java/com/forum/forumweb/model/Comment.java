@@ -3,6 +3,7 @@ package com.forum.forumweb.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.File;
 import java.util.Date;
 
 @Data
@@ -30,6 +31,6 @@ public class Comment {
     @Column(name = "USER_NAME")
     private String userName;
 
-    @Column(name = "FILE_URL")
-    private String fileUrl;
+    @Column(name = "FILE")
+    private File file;
 }

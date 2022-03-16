@@ -3,6 +3,7 @@ package com.forum.forumweb.model;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.io.File;
 import java.util.Date;
 
 @Data
@@ -24,8 +25,8 @@ public class Post {
     @Column(name = "POST_TIME")
     private Date postTime;
 
-    @Column(name = "FILE_URL")
-    private String fileUrl;
+    @Column(name = "FILE")
+    private File file;
 
     @Column(name = "USER_ID")
     private Integer userId;

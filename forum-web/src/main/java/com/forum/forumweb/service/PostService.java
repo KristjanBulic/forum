@@ -14,8 +14,8 @@ public class PostService {
     @Autowired
     PostRepository postRepository;
 
-    public List<Post> getPosts(Specification<Post> specs) {
-        return postRepository.findAll(specs);
+    public List<Post> getPosts() {
+        return postRepository.findAll();
     }
 
     public int savePost(Post post) {

@@ -19,8 +19,8 @@ public class PostController {
     PostService postService;
 
     @GetMapping("/posts")
-    public ResponseEntity<List<Post>> getPosts(Specification<Post> specs){
-        return ResponseEntity.ok(postService.getPosts(specs));
+    public ResponseEntity<List<Post>> getPosts(){
+        return ResponseEntity.ok(postService.getPosts());
     }
 
     @PostMapping("/new-post")

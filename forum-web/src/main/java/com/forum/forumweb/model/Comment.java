@@ -3,7 +3,6 @@ package com.forum.forumweb.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.io.File;
 import java.util.Date;
 
 @Data

@@ -1,6 +1,7 @@
 package com.forum.forumweb.controller;
 
-import com.forum.forumweb.model.Post;
+import com.forum.forumweb.dtos.model.PostDTO;
+import com.forum.forumweb.dtos.model.PostSaveDTO;
 import com.forum.forumweb.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,13 +19,13 @@ public class PostController {
     PostService postService;
 
     @GetMapping("/posts")
-    public ResponseEntity<List<Post>> getPosts(){
+    public ResponseEntity<List<PostDTO>> getPosts(){
         return ResponseEntity.ok(postService.getPosts());
     }
 
     @PostMapping("/new-post")
-    public ResponseEntity<Integer> createNewPost(@RequestBody Post post){
-        int id = postService.savePost(post);
+    public ResponseEntity<Integer> createNewPost(@RequestBody final PostSaveDTO post){
+        final var id = postService.savePost(post);
         return ResponseEntity.ok(id);
     }
 }

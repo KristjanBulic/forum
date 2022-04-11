@@ -1,5 +1,7 @@
 package com.forum.forumweb.controller;
 
+import com.forum.forumweb.dtos.model.CommentDTO;
+import com.forum.forumweb.dtos.model.CommentSaveDTO;
 import com.forum.forumweb.model.Comment;
 import com.forum.forumweb.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +17,12 @@ public class CommentController {
     CommentService commentService;
 
     @GetMapping("/comment/post/{postId}")
-    public ResponseEntity<List<Comment>> getCommentsForPost(@PathVariable("postId") Integer postId){
+    public ResponseEntity<List<CommentDTO>> getCommentsForPost(@PathVariable("postId") Integer postId){
         return ResponseEntity.ok(commentService.getCommentsForPost(postId));
     }
 
-    @PostMapping("/comment/post")
-    public ResponseEntity<Comment> commentPost(@PathVariable("postId") Integer postId, @RequestBody Comment comment){
-        commentService.saveComment(comment);
-        return ResponseEntity.ok(comment);
+    @PostMapping("/comment/post/{postId}")
+    public ResponseEntity<CommentDTO> commentPost(@PathVariable("postId") Integer postId, @RequestBody CommentSaveDTO comment){
+        return ResponseEntity.ok(commentService.saveComment(comment));
     }
 }

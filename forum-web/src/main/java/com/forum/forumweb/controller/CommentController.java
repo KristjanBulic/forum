@@ -23,6 +23,6 @@ public class CommentController {
 
     @PostMapping("/comment/post/{postId}")
     public ResponseEntity<CommentDTO> commentPost(@PathVariable("postId") Integer postId, @RequestBody CommentSaveDTO comment){
-        return ResponseEntity.ok(commentService.saveComment(comment));
+        return ResponseEntity.ok(commentService.saveComment(comment, postId));
     }
 }

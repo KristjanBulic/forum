@@ -24,8 +24,9 @@ public class CommentService {
         return commentRepository.findAllByPostId(postId).stream().map(x -> commentMapper.toDTO(x)).collect(Collectors.toList());
     }
 
-    public CommentDTO saveComment(CommentSaveDTO comment) {
+    public CommentDTO saveComment(CommentSaveDTO comment, Integer postId) {
         final var c = commentMapper.toEntity(comment);
+        c.setPostId(postId);
         commentRepository.save(c);
         return commentMapper.toDTO(c);
     }
